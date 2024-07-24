@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:46:44 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/07/16 17:30:07 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:17:07 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 	{
 		x = ft_atod(argv[2]);
 		y = ft_atod(argv[3]);
-
 		window_init(2, x, y);
 	}
 	else
