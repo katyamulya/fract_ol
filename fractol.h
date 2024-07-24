@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:49:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/07/16 17:32:28 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/07/22 18:35:02 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@ typedef struct s_data{
 	int		endian;
 }				t_data;
 
-typedef struct s_vars{
-	void	*mlx;
-	void	*win;
-}				t_vars;
-
 typedef struct s_mlx{
 	void	*mlx;
 	void	*win;
@@ -38,14 +33,38 @@ typedef struct s_mlx{
 	int		fractol;
 	double	x;
 	double	y;
+	int		max_i;
+	double	zoom;
+	double	cre;
+	double	cim;
+	double	newre;
+	double	newim;
+	double	oldre;
+	double	oldim;
+	double	movex;
+	double	movey;
+	int		color;
 }				t_mlx;
+
+typedef struct s_pix{
+	int	x;
+	int	y;
+}				t_pix;
+
+/*
+typedef struct s_vars{
+	void	*mlx;
+	void	*win;
+}				t_vars;*/
 
 //utils:
 int		ft_strcmp(char *s1, char *s2);
 void	window_init(int fractol, double x, double y);
 void	avaliable_params(void);
 double	ft_atod(char *str);
-//int		close_win(int keycode, t_mlx *vars);
 void	hook_events(t_mlx *mlx);
+int		draw_fractol(t_mlx *mlx);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int		create_trgb(int t, int r, int g, int b);
 
 #endif
