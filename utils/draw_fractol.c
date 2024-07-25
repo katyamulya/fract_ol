@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:19:21 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/07/24 16:15:23 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:11:25 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ void	mandelbrot(t_mlx *mlx, t_pix p)
 	mlx->newim = 0;
 	mlx->oldre = 0;
 	mlx->oldim = 0;
-	mlx->cre = 1.5 * (p.x - 1000 / 2) / (0.5 * mlx->zoom * 1000) + mlx->movex;
-	mlx->cim = (p.y - 1000 / 2) / (0.5 * mlx->zoom * 1000) + mlx->movey;
+	mlx->cre = (p.x * (4.0 / 1000) - 2) / mlx->zoom + mlx->movex;
+	mlx->cim = (p.y * (4.0 / 1000) - 2) / mlx->zoom + mlx->movey;
 	i = calculate_i(mlx);
 	col = create_trgb(0, (i % 256), 150, 250);
 	if (i == mlx->max_i)
-		my_mlx_pixel_put(&mlx->img, p.x, p.y, 255);
+		my_mlx_pixel_put(&mlx->img, p.x, p.y, 256);
 	else
 		my_mlx_pixel_put(&mlx->img, p.x, p.y, col * i);
 }
@@ -67,14 +67,14 @@ void	julia(t_mlx *mlx, t_pix p)
 
 	mlx->cre = mlx->x;
 	mlx->cim = mlx->y;
-	mlx->newre = 1.5 * (p.x - 1000 / 2) / (0.5 * mlx->zoom * 1000) + mlx->movex;
-	mlx->newim = (p.y - 1000 / 2) / (0.5 * mlx->zoom * 1000) + mlx->movey;
+	mlx->newre = (p.x * (4.0 / 1000) - 2) / mlx->zoom + mlx->movex;
+	mlx->newim = (p.y * (4.0 / 1000) - 2) / mlx->zoom + mlx->movey;
 	i = calculate_i(mlx);
 	col = create_trgb(0, (i % 256), 50, 250);
 	if (i == mlx->max_i)
-		my_mlx_pixel_put(&mlx->img, p.x, p.y, 255);
-	else
 		my_mlx_pixel_put(&mlx->img, p.x, p.y, col * i);
+	else
+		my_mlx_pixel_put(&mlx->img, p.x, p.y, 256);
 }
 
 int	draw_fractol(t_mlx *mlx)
@@ -92,6 +92,8 @@ int	draw_fractol(t_mlx *mlx)
 				mandelbrot(mlx, p);
 			else if (mlx->fractol == 2)
 				julia(mlx, p);
+			else if (mlx->fractol == 3)
+				burning_ship(mlx, p);
 			p.y++;
 		}
 		p.x++;
@@ -99,5 +101,4 @@ int	draw_fractol(t_mlx *mlx)
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	return (0);
 }
-
 
