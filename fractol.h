@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 12:49:11 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/07/22 18:35:02 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/07/25 12:27:26 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft/libft.h"
 # include "mlx/mlx.h"
+# include <math.h>
 
 # include <stdio.h>
 
@@ -66,5 +67,6 @@ void	hook_events(t_mlx *mlx);
 int		draw_fractol(t_mlx *mlx);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		create_trgb(int t, int r, int g, int b);
+void	burning_ship(t_mlx *mlx, t_pix p);
 
 #endif

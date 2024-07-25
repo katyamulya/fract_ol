@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 11:46:44 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/07/18 12:17:07 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:27:50 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	main(int argc, char **argv)
 		y = ft_atod(argv[3]);
 		window_init(2, x, y);
 	}
+	else if (argc == 2 && ft_strcmp(argv[1], "burning_ship") == 0)
+		window_init(3, 0.0, 0.0);
 	else
 		avaliable_params();
 	return (0);
