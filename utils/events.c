@@ -6,14 +6,12 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 14:49:13 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/07/24 16:15:10 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/07/25 15:06:58 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 /*
-
-
 void	rescaling(t_mlx *mlx, int x, int y)
 {
 	mlx->offset_x = (x * (4.0 / 1000.0) - 2) / mlx->zoom + mlx->offset_x \
@@ -28,7 +26,7 @@ int	mouse_events(int keycode, int x, int y, t_mlx *mlx)
 	if (keycode == 4)
 	{
 		mlx->zoom *= 1.1;
-		if (mlx->max_i < 1000)
+		if (mlx->max_i < 500)
 			mlx->max_i += 10;
 	}
 	else if (keycode == 5)
@@ -55,13 +53,13 @@ int	key_press(int keycode, t_mlx *mlx)
 	if (keycode == 53)
 		close_win(mlx);
 	else if (keycode == 125)
-		mlx->movey += 0.01 / mlx->zoom;
+		mlx->movey += 0.1 / mlx->zoom;
 	else if (keycode == 126)
-		mlx->movey -= 0.01 * mlx->zoom;
+		mlx->movey -= 0.1 * mlx->zoom;
 	else if (keycode == 124)
-		mlx->movex += 0.01 / mlx->zoom;
+		mlx->movex += 0.1 / mlx->zoom;
 	else if (keycode == 123)
-		mlx->movex -= 0.01 / mlx->zoom;
+		mlx->movex -= 0.1 / mlx->zoom;
 	draw_fractol(mlx);
 	return (0);
 }
