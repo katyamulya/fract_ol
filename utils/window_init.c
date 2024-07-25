@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:38:43 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/07/24 15:49:24 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/07/24 16:29:26 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ void	window_init(int fractol, double x, double y)
 	mlx.mlx = mlx_init();
 	if (fractol == 1)
 		mlx.win = mlx_new_window(mlx.mlx, 1000, 1000, "Mandelbrot");
-	else
+	else if (fractol == 2)
 		mlx.win = mlx_new_window(mlx.mlx, 1000, 1000, "Julia");
+	else
+		mlx.win = mlx_new_window(mlx.mlx, 1000, 1000, "Burning Ship");
 	mlx.img.img = mlx_new_image(mlx.mlx, 1000, 1000);
 	mlx.img.addr = mlx_get_data_addr(mlx.img.img, &mlx.img.bits_per_pixel,
 			&mlx.img.line_length, &mlx.img.endian);
