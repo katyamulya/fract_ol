@@ -6,7 +6,7 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 12:27:04 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/07/25 15:00:33 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/07/27 15:27:34 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ int	calculate_i_bs(t_mlx *mlx)
 	i = 0;
 	while (i < mlx->max_i)
 	{
-		if (((mlx->newre * mlx->newre) + (mlx->newim * mlx->newim)) >= 4)
-			break ;
 		mlx->oldre = fabs(mlx->newre);
 		mlx->oldim = fabs(mlx->newim);
-		mlx->newre = (mlx->oldre * mlx->oldre) - (mlx->oldim * mlx->oldim) + mlx->cre;
+		mlx->newre = (mlx->oldre * mlx->oldre) \
+			- (mlx->oldim * mlx->oldim) + mlx->cre;
 		mlx->newim = 2 * (mlx->oldre * mlx->oldim) + mlx->cim;
-		//if (((mlx->newre * mlx->newre) + (mlx->newim * mlx->newim)) > 4)
-			//break ;
+		if (((mlx->newre * mlx->newre) + (mlx->newim * mlx->newim)) > 4)
+			break ;
 		i++;
 	}
 	return (i);
@@ -45,7 +44,7 @@ void	burning_ship(t_mlx *mlx, t_pix p)
 	mlx->cre = (p.x * (4.0 / 1000) - 2) / mlx->zoom + mlx->movex;
 	mlx->cim = (p.y * (4.0 / 1000) - 2) / mlx->zoom + mlx->movey;
 	i = calculate_i_bs(mlx);
-	col = create_trgb(0, (i % 256), 150, 250);
+	col = create_trgb(0, (i % 256), ((i + 150) / 256), 230);
 	if (i == mlx->max_i)
 		my_mlx_pixel_put(&mlx->img, p.x, p.y, 0);
 	else

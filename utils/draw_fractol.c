@@ -6,13 +6,13 @@
 /*   By: kdvarako <kdvarako@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 13:19:21 by kdvarako          #+#    #+#             */
-/*   Updated: 2024/07/25 15:11:25 by kdvarako         ###   ########.fr       */
+/*   Updated: 2024/07/27 15:29:51 by kdvarako         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../fractol.h"
 
-int	calculate_i(t_mlx *mlx)
+int	calculate_i_j(t_mlx *mlx)
 {
 	int		i;
 	double	tmp;
@@ -20,20 +20,31 @@ int	calculate_i(t_mlx *mlx)
 	i = 0;
 	while (i < mlx->max_i)
 	{
-		if (mlx->fractol == 1)
-		{
-			mlx->oldre = mlx->newre;
-			mlx->oldim = mlx->newim;
-			mlx->newre = (mlx->oldre * mlx->oldre) - (mlx->oldim * mlx->oldim) + mlx->cre;
-			mlx->newim = (2 * mlx->oldre * mlx->oldim) + mlx->cim;
-		}
-		else if (mlx->fractol == 2)
-		{
-			mlx->oldre = mlx->newre;
-			mlx->oldim = mlx->newim;
-			mlx->newre = (mlx->oldre * mlx->oldre) - (mlx->oldim * mlx->oldim) + mlx->cre;
-			mlx->newim = (2 * mlx->oldre * mlx->oldim) + mlx->cim;
-		}
+		mlx->oldre = mlx->newre;
+		mlx->oldim = mlx->newim;
+		mlx->newre = (mlx->oldre * mlx->oldre) \
+			- (mlx->oldim * mlx->oldim) + mlx->cre;
+		mlx->newim = (2 * mlx->oldre * mlx->oldim) + mlx->cim;
+		if (((mlx->newre * mlx->newre) + (mlx->newim * mlx->newim)) > 4)
+			break ;
+		i++;
+	}
+	return (i);
+}
+
+int	calculate_i_m(t_mlx *mlx)
+{
+	int		i;
+	double	tmp;
+
+	i = 0;
+	while (i < mlx->max_i)
+	{
+		mlx->oldre = mlx->newre;
+		mlx->oldim = mlx->newim;
+		mlx->newre = (mlx->oldre * mlx->oldre) \
+			- (mlx->oldim * mlx->oldim) + mlx->cre;
+		mlx->newim = (2 * mlx->oldre * mlx->oldim) + mlx->cim;
 		if (((mlx->newre * mlx->newre) + (mlx->newim * mlx->newim)) > 4)
 			break ;
 		i++;
@@ -52,8 +63,8 @@ void	mandelbrot(t_mlx *mlx, t_pix p)
 	mlx->oldim = 0;
 	mlx->cre = (p.x * (4.0 / 1000) - 2) / mlx->zoom + mlx->movex;
 	mlx->cim = (p.y * (4.0 / 1000) - 2) / mlx->zoom + mlx->movey;
-	i = calculate_i(mlx);
-	col = create_trgb(0, (i % 256), 150, 250);
+	i = calculate_i_m(mlx);
+	col = create_trgb(0, (i % 256), ((i + 50) / 256), 250);
 	if (i == mlx->max_i)
 		my_mlx_pixel_put(&mlx->img, p.x, p.y, 256);
 	else
@@ -69,8 +80,8 @@ void	julia(t_mlx *mlx, t_pix p)
 	mlx->cim = mlx->y;
 	mlx->newre = (p.x * (4.0 / 1000) - 2) / mlx->zoom + mlx->movex;
 	mlx->newim = (p.y * (4.0 / 1000) - 2) / mlx->zoom + mlx->movey;
-	i = calculate_i(mlx);
-	col = create_trgb(0, (i % 256), 50, 250);
+	i = calculate_i_j(mlx);
+	col = create_trgb(0, (i % 256), ((i + 150) / 256), 250);
 	if (i == mlx->max_i)
 		my_mlx_pixel_put(&mlx->img, p.x, p.y, col * i);
 	else
@@ -101,4 +112,3 @@ int	draw_fractol(t_mlx *mlx)
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	return (0);
 }
-
